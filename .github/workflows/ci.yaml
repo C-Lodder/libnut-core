@@ -1,4 +1,5 @@
 name: Run CI
+
 on:
   push:
     branches:
@@ -6,13 +7,19 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  FORCE_COLOR: 2
+
 jobs:
   test:
+    name: Node ${{ matrix.node }}
+    runs-on: windows-2019
+
     strategy:
+      fail-fast: false
       matrix:
-        os: [ windows-2019 ]
-        node: [ 18 ]
-    runs-on: ${{matrix.os}}
+        node: [18]
+
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4.1.1
